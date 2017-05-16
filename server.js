@@ -9,8 +9,11 @@ var port = process.env.PORT || 8080
 
 app.use(bodyparser.urlencoded({extended: false}))
 app.use(express.static('public'))
-app.post('/get-file-size', upload.single('filetotest'), function(req, res1) {
-    var s = {"size":req.file.size}
+app.post('/get-file-size', upload.single('upfile'), function(req, res1) {
+  console.log(req.file)
+    var s = {
+      "name": req.file.originalname,
+      "size":req.file.size}
     fs.unlinkSync(req.file.path)
     res1.end(JSON.stringify(s))
 })
